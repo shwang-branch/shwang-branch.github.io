@@ -1,0 +1,121 @@
+
+<!--
+TO DO
+- Add "Share with Org" link that uses deep link data to pre-populate Branch Domain and ESP
+- Add sample .csv input and output files
+ -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Branch Links Generator</title>
+	<link rel="icon" href="https://branch.io/img/press/kit/badge-black.png" />
+	<link rel="stylesheet" href="style.css" />
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<!-- Script to generate 3P link based on user inputs -->
+	<script>
+	(function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-latest.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode autoAppIndex banner closeBanner closeJourney creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setBranchViewData setIdentity track validateCode trackCommerceEvent logEvent disableTracking".split(" "), 0);
+    // init Branch
+    branch.init('key_test_ddUA5fISi8XEozH2viR10kpfsxgDaGZR');
+
+
+		function generateLink() {
+			var original_url = window.document.getElementById("originalUrl").value;
+			var webOnly = window.document.getElementById("webOnlyCheckBox").checked;
+            var mkcpgn_value = window.document.getElementById('mkcpgn-value').value;
+            
+            
+			if (original_url == '') {    // Verify a URL is entered
+				window.document.getElementById("generated3PLink").value = 'Please enter a destination URL.'
+				window.document.getElementById("originalUrl").focus();
+			} else if (mkcpgn_value == '') {    // Verify a mkcpgn value is entered
+                window.document.getElementById("generated3PLink").value = 'A mkcpgn value is required.'
+                window.document.getElementById("mkcpgn-value").focus();
+            } else {
+                // Get mkcpgn value and add to linkData
+				var linkData = {
+				  mkcpgn: mkcpgn_value,
+				};
+                
+                // Get link and print
+				branch.link(linkData, function(err, link) {
+				  console.log(link);
+				  window.document.getElementById("generated3PLink").value = link;
+				});
+			}
+		}
+
+		function toggleView() {
+			$(".toggle").toggle();
+		}
+	</script>
+</head>
+
+<body class="container">
+	<!-- Initialize clipboard.js -->
+	<script>(function(){new Clipboard('#copy-button');})();</script>
+
+	<div>
+		<h1 style="display:inline;">Branch Links Generator</h1>
+	</div>
+	<br />
+	<section class="container" id="link-creation">
+		<!-- Table for user input -->
+		<table>
+			<tbody>
+        <tr class="toggle">
+            <td><label style="margin-right: 10px">Destination Web URL</label></td>
+            <td><input class="form-control" style="width:500px" id="originalUrl" type="text" placeholder="https://www.example.com/products/shirts/"/></td>
+            <td><div class="help-tip"><p>This is the destination URL where you'd like the clicker to end up.</p></div></td>
+        </tr>
+        <tr >
+            <td><label style="margin-right: 10px">Web Only</label></td>
+            <td><input type="checkbox" name="webonly" id="webOnlyCheckBox"/></td>
+            <td><div class="help-tip"><p>This flag forces the link to redirect to mWeb regardless of whether the user has the app installed</p></div></td>
+        </tr>
+				<tr class="toggle" style="display:none;">
+					<td><label style="margin-right: 10px">File Upload</label></td>
+					<td><input  type="file" id="files"></td>
+				</tr>
+
+      </tbody>
+		</table>
+		<br/>
+		<h3 class="toggle">Add mkcpgn value</h3>
+
+		<!-- Deep linking parameters table -->
+		<table id="query_params" class="toggle">
+			<tr id="row-1">
+          <td><label style="margin-right: 10px">mkcpgn </label></td>
+          <td><input class="form-control" style="width:500px" id="mkcpgn-value" type="text" placeholder="value"/></td>
+      </tr>
+		</table>
+		<br/>
+	</section>
+
+	<section>
+		<br>
+		<br>
+		<div class="text-center"><button class="form-control toggle" style="float:none; background-color:#d3d3d3;" onclick="generateLink()">Create Link</button></div>
+		<div class="text-center"><button class="form-control toggle" style="float:none; background-color:#d3d3d3; display:none;" onclick="parseFile()">Process CSV</button></div>
+		<br>
+		<br>
+	</section>
+
+	<section class="container toggle" id="linkOutput">
+		<h3>Generated Email Link
+		<button class="btn" id="copy-button" style="background-color:#d3d3d3; display:inline;" data-clipboard-target="#generated3PLink">Copy Link</button>
+		</h3>
+		<textarea class="form-control" style="height:100px; margin-bottom:5%;" id="generated3PLink" type="text"></textarea>
+	</section>
+</body>
+</html>
