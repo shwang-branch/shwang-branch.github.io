@@ -1,7 +1,75 @@
 <!DOCTYPE html>
 <html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
+
+    <head>
+        <script>
+            (function(b, r, a, n, c, h, _, s, d, k) { if (!b[n] || !b[n]._q) { for (; s < _.length;) c(h, _[s++]);
+                                                                              d = r.createElement(a);
+                                                                              d.async = 1;
+                                                                              d.src = "https://cdn.branch.io/branch-latest.min.js";
+                                                                              k = r.getElementsByTagName(a)[0];
+                                                                              k.parentNode.insertBefore(d, k);
+                                                                              b[n] = h } })(window, document, "script", "branch", function(b, r) { b[r] = function() { b._q.push([r, arguments]) } }, { _q: [], _v: 1 }, "addListener applyCode autoAppIndex banner closeBanner closeJourney creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setBranchViewData setIdentity track validateCode trackCommerceEvent logEvent disableTracking".split(" "), 0);
+            // init Branch
+            //         branch.init('key_live_ciHy2mMMoX6CpES3EiLzqhfetvpzmV5D');
+
+            //    branch.init('key_live_ciHy2mMMoX6CpES3EiLzqhfetvpzmV5D', {
+            //        metadata: {
+            //            'hasSiteID': 'false'
+            //        }
+            //    });
+            branch.init('key_live_ccQ8piFdCMPVysh8TLmEhghmuCk162Rr', {'branch_match_id':'NzAyMTc1ODMyNzA4MTY2ODA0'}, function(error, data) {
+                console.log(data);
+            });
+
+
+        </script>
+    </head>
+
+    <body>
+        <h1>Hello World</h1>
+        <p>I'm hosted with GitHub Pages.</p>
+
+        <button onclick="myFunction()">Log event</button>
+        <script>
+            function myFunction() {
+                branch.closeJourney(function(err, data) {
+                    if (err) {
+                        console.log(err, data); 
+                        if (err == 'Journey already dismissed.') {
+                            setTimeout(function(){
+                                //branch.setBranchViewData({'setBranchViewData-key1':'value1','setBranchViewData-key2':'value2'});
+
+                                // optional additional deep link data
+                                var linkData = {
+                                    data: {
+                                        'custom_bool': true,
+                                        'custom_int': Date.now(),
+                                        'custom_campaign': 'customer_campaign',
+                                        '~customer_campaign': 'customer_campaign',
+                                        '~channel' : "channel",
+                                        'gclid' : "gclid-value"
+                                    }
+                                };
+                                branch.setBranchViewData(linkData);
+                                console.log('logging pageview from error'); 
+
+                                branch.track('pageview', {'key1':'value1','pageview-key2':'value2'});
+                            }, 2000);
+                        }
+                    }
+                    else {
+                        //                    setTimeout(function(){
+                        //                        branch.setBranchViewData({'setBranchViewData-key1':'value1','setBranchViewData-key2':'value2'});
+                        //                        console.log('logging pageview'); 
+                        //                        
+                        //                        branch.track('pageview', {'key1':'value1','pageview-key2':'value2'});
+                        //                        }, 2000);
+                    }
+                });
+
+            }
+        </script>
+    </body>
+
 </html>
