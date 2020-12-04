@@ -44,6 +44,7 @@
                                 var linkData = {
                                     data: {
                                         'custom_bool': true,
+                                        '$journeys_cta': 'https://psmaster.app.link/?~campaign=custom-campaign&~campaign_id=123456&~channel=not-journeys',
                                         'custom_int': Date.now(),
                                         'custom_campaign': 'customer_campaign',
                                         '~customer_campaign': 'customer_campaign',
@@ -60,24 +61,25 @@
                     }
                     else {
                         setTimeout(function(){
-                                //branch.setBranchViewData({'setBranchViewData-key1':'value1','setBranchViewData-key2':'value2'});
+                            //branch.setBranchViewData({'setBranchViewData-key1':'value1','setBranchViewData-key2':'value2'});
 
-                                // optional additional deep link data
-                                var linkData = {
-                                    data: {
-                                        'custom_bool': true,
-                                        'custom_int': Date.now(),
-                                        'custom_campaign': 'customer_campaign',
-                                        '~customer_campaign': 'customer_campaign',
-                                        '~channel' : "channel",
-                                        'gclid' : "gclid-value"
-                                    }
-                                };
-                                branch.setBranchViewData(linkData);
-                                console.log('logging pageview from error'); 
+                            // optional additional deep link data
+                            var linkData = {
+                                data: {
+                                    'custom_bool': true,
+                                    '$journeys_cta': 'https://psmaster.app.link/?~campaign=custom-campaign&~campaign_id=123456&~channel=not-journeys',
+                                    'custom_int': Date.now(),
+                                    'custom_campaign': 'customer_campaign',
+                                    '~customer_campaign': 'customer_campaign',
+                                    '~channel' : "channel",
+                                    'gclid' : "gclid-value"
+                                }
+                            };
+                            branch.setBranchViewData(linkData);
+                            console.log('logging pageview from error'); 
 
-                                branch.track('pageview', {'key1':'value1','pageview-key2':'value2'});
-                            }, 1000);
+                            branch.track('pageview', {'key1':'value1','pageview-key2':'value2'});
+                        }, 1000);
                     }
                 });
 
