@@ -38,11 +38,11 @@
         <button onclick="myFunction()">Log event</button>
         <script>
             function myFunction() {
-                var isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Version)/i.test("Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1");
-                console.log(isiOSWebView);
+                var isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Version)/i.test(navigator.userAgent);
+                var isAndroidWebView = /Blood Donor\/[0-9\.]+$/.test(navigator.userAgent);
+                var isWebView = isiOSWebView || isAndroidWebView;
+                document.getElementById("isWebView").innerHTML = isWebView;
                 
-                var isAndroidWebView = /BLOOD\/[0-9\.]+$/.test("BLOOD/2.2.0 Dalvik/2.1.0 (Linux; U; Android 11; Pixel 3a XL Build/RQ1A.210105.002)");
-                console.log(isAndroidWebView);
                 
                 branch.closeJourney(function(err, data) {
                     if (err) {
@@ -96,6 +96,9 @@
 
             }
         </script>
+        
+        <p id="isWebView">Is this a Webview?</p>
+
     </body>
 
 </html>
