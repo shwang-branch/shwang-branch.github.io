@@ -2,7 +2,11 @@
 <html>
 
     <head>
-        <script>
+        <script type="text/javascript">
+            var isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Version)/i.test(navigator.userAgent);
+            var isAndroidWebView = /Blood Donor\/[0-9\.]+$/.test(navigator.userAgent);
+            var isWebView = isiOSWebView || isAndroidWebView;
+            
             (function(b, r, a, n, c, h, _, s, d, k) { if (!b[n] || !b[n]._q) { for (; s < _.length;) c(h, _[s++]);
                                                                               d = r.createElement(a);
                                                                               d.async = 1;
@@ -18,12 +22,13 @@
             //            'hasSiteID': 'false'
             //        }
             //    });
-            branch.init('key_live_ccQ8piFdCMPVysh8TLmEhghmuCk162Rr', {'branch_match_id':'NzAyMTc1ODMyNzA4MTY2ODA0'}, function(error, data) {
+            branch.init('key_live_ccQ8piFdCMPVysh8TLmEhghmuCk162Rr', { 'no_journeys': isWebView }, function(error, data) {
                 console.log(data);
+                console.log(isWebView);
             });
-
-
         </script>
+
+
     </head>
 
     <body>
@@ -33,6 +38,12 @@
         <button onclick="myFunction()">Log event</button>
         <script>
             function myFunction() {
+                var isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Version)/i.test("Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1");
+                console.log(isiOSWebView);
+                
+                var isAndroidWebView = /BLOOD\/[0-9\.]+$/.test("BLOOD/2.2.0 Dalvik/2.1.0 (Linux; U; Android 11; Pixel 3a XL Build/RQ1A.210105.002)");
+                console.log(isAndroidWebView);
+                
                 branch.closeJourney(function(err, data) {
                     if (err) {
                         console.log(err, data); 
