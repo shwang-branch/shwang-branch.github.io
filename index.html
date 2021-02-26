@@ -34,14 +34,15 @@
     <body>
         <h1>Hello World</h1>
         <p>I'm hosted with GitHub Pages.</p>
+        <p id="isWebView">Is this a Webview?</p>
 
         <button onclick="myFunction()">Log event</button>
         <script>
+            var isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Version)/i.test(navigator.userAgent);
+            var isAndroidWebView = /Blood Donor\/[0-9\.]+$/.test(navigator.userAgent);
+            var isWebView = isiOSWebView || isAndroidWebView;
+            document.getElementById("isWebView").innerHTML = isWebView;
             function myFunction() {
-                var isiOSWebView = /(iPhone|iPod|iPad).*AppleWebKit(?!.*Version)/i.test(navigator.userAgent);
-                var isAndroidWebView = /Blood Donor\/[0-9\.]+$/.test(navigator.userAgent);
-                var isWebView = isiOSWebView || isAndroidWebView;
-                document.getElementById("isWebView").innerHTML = isWebView;
                 
                 
                 branch.closeJourney(function(err, data) {
@@ -96,9 +97,7 @@
 
             }
         </script>
-        
-        <p id="isWebView">Is this a Webview?</p>
-
+    
     </body>
 
 </html>
