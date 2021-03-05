@@ -33,44 +33,53 @@
         <h1>Hello World</h1>
         <p>I'm hosted with GitHub Pages.</p>
 
-<!--        <button onclick="myFunction()">Log event</button>-->
-        <a href="psmaster://test">link text</a>
-        
+        <button onclick="myFunction()">Log event</button>
+        <!--        <a href="psmaster://test">link text</a>-->
+
+
         <script>
             function myFunction() {
+                mParticle.logEvent(
+                    'Video Watched',
+                    mParticle.EventType.Navigation,
+                    {'EventCategory':'Destination Intro','title':'Paris'}
+                );
+                //            branch.closeJourney(function(err, data) {
+                //                if (err) {
+                //                    console.log(err, data); 
+                //                }
+                //                else {
+                //                    setTimeout(function(){
+                //                        branch.setBranchViewData({'setBranchViewData-key1':'value1','setBranchViewData-key2':'value2'});
+                //                        // To include targetting metadata: 
+                //                        branch.track('pageview', {'key1':'value1','pageview-key2':'value2'});
+                //                        // To include additional deeplink params:
+                //                        }, 2000);
+                //                }
+                //            });
 
-                branch.closeJourney(function(err, data) {
-                    if (err) {
-                        console.log(err, data); 
-                    }
-                    else {
-                        console.log('track');
-                        setTimeout(function(){ branch.track('pageview'); }, 1000); 
-                    }
-                });
-
-                var identityRequest = {
-                    userIdentities: {
-                        other3: 'otheridentity3',
-                        customerid: '123456'    
-                    }
-                }
+                //                var identityRequest = {
+                //                    userIdentities: {
+                //                        other3: 'otheridentity3',
+                //                        customerid: '123456'    
+                //                    }
+                //                }
                 // 1. Create the product
 
 
-                var product = mParticle.eCommerce.createProduct(
-                    'Double Room - Econ Rate',
-                    'econ-1', 
-                    4.15, 
-                    4
-                );
-
-                // 2. Summarize the transaction
-                var transactionAttributes = {
-                    Id: 'foo-transaction-id',
-                    Revenue: 430.00,
-                    Tax: 30
-                };
+                //                var product = mParticle.eCommerce.createProduct(
+                //                    'Double Room - Econ Rate',
+                //                    'econ-1', 
+                //                    4.15, 
+                //                    4
+                //                );
+                //
+                //                // 2. Summarize the transaction
+                //                var transactionAttributes = {
+                //                    Id: 'foo-transaction-id',
+                //                    Revenue: 430.00,
+                //                    Tax: 30
+                //                };
                 //                var event_and_custom_data = {
                 //                    "transaction_id": "tras_Id_1232343434",
                 //                    "currency": "USD",
@@ -83,29 +92,29 @@
                 //                    "purchase_loc": "Palo Alto",
                 //                    "store_pickup": "unavailable"
                 //                };
-
-                var event_and_custom_data = {
-                    "abc": "",
-                };
-
-                var content_items = [
-                    {
-                        "$content_schema": "COMMERCE_PRODUCT",
-                        "$latitude": 12.07,
-                        "$longitude": -97.5,
-                        "$image_captions": [ "my_img_caption1", "my_img_caption_2" ],
-                        "$condition": null,
-                        "$custom_fields": {"foo1":"bar1","foo2":"bar2"}
-                    },
-                    {
-                        "$og_title": "Nike Woolen Sox",
-                        "$canonical_identifier": "nike/5324",
-                        "$rating_max": 2.8,
-                        "$creation_timestamp": 1499892854966
-                    }];
-
-
-                var customer_event_alias = "my custom alias";
+                //
+                //                var event_and_custom_data = {
+                //                    "abc": "",
+                //                };
+                //
+                //                var content_items = [
+                //                    {
+                //                        "$content_schema": "COMMERCE_PRODUCT",
+                //                        "$latitude": 12.07,
+                //                        "$longitude": -97.5,
+                //                        "$image_captions": [ "my_img_caption1", "my_img_caption_2" ],
+                //                        "$condition": null,
+                //                        "$custom_fields": {"foo1":"bar1","foo2":"bar2"}
+                //                    },
+                //                    {
+                //                        "$og_title": "Nike Woolen Sox",
+                //                        "$canonical_identifier": "nike/5324",
+                //                        "$rating_max": 2.8,
+                //                        "$creation_timestamp": 1499892854966
+                //                    }];
+                //
+                //
+                //                var customer_event_alias = "my custom alias";
                 //
                 //                branch.logEvent(
                 //                    "abc",
